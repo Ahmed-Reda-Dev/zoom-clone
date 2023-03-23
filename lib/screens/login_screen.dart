@@ -13,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final AuthMethods _authMethods = AuthMethods();
+  final GlobalKey _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () async {
               bool res = await _authMethods.signInWithGoogle(context);
               if (res) {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(_key.currentContext!, '/home');
               }
             },
           ),
