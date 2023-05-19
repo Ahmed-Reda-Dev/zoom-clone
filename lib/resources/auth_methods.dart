@@ -10,6 +10,7 @@ import 'package:zoom_clone/utils/utils.dart';
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  User get currentUserData => _auth.currentUser!;
 
   // Stream of the current user
   Stream<User?> get user => _auth.authStateChanges();
@@ -32,6 +33,7 @@ class AuthMethods {
         final UserCredential userCredential =
             await _auth.signInWithCredential(credential);
         final User? user = userCredential.user;
+
         if (kDebugMode) {
           print("User: $user");
         }

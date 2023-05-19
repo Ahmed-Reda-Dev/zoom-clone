@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/screens/history_meetings_screen.dart';
+import 'package:zoom_clone/screens/meetings_screen.dart';
 import 'package:zoom_clone/utils/colors.dart';
 
 import '../widgets/home_meeting_button.dart';
@@ -12,6 +14,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _page = 0;
+
+  void onPageChanged(int value) {
+    setState(() {
+      _page = value;
+    });
+  }
+
+  List<Widget> pages = [
+    const MeetingsScreen(),
+    const HistoryMeetingsScreen(),
+    const Text('Contacts'),
+    const Text('Settings'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,46 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Meet & Chat'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              HomeMeetingButton(
-                onTap: () {},
-                icon: Icons.video_call,
-                text: 'New Meeting',
-              ),
-              HomeMeetingButton(
-                onTap: () {},
-                icon: Icons.add_box_rounded,
-                text: 'Join Meeting',
-              ),
-              HomeMeetingButton(
-                onTap: () {},
-                icon: Icons.calendar_today_rounded,
-                text: 'Schedule',
-              ),
-              HomeMeetingButton(
-                onTap: () {},
-                icon: Icons.screen_share_rounded,
-                text: 'Share Screen',
-              ),
-            ],
-          ),
-          const Expanded(
-            child: Center(
-              child: Text(
-                'Create/Join Meetings with just one click!',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: footerColor,
         selectedItemColor: Colors.white,
@@ -89,11 +66,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-
-  void onPageChanged(int value) {
-    setState(() {
-      _page = value;
-    });
   }
 }
