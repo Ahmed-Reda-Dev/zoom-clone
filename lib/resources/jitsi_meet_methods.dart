@@ -10,8 +10,8 @@ class JitsiMeetMethods {
 
       // Define meetings options here
       var options = JitsiMeetingOptions(
-        roomNameOrUrl: roomName,
-      )..userDisplayName = _authMethods.currentUserData.displayName;
+          roomNameOrUrl: roomName,
+          userDisplayName: _authMethods.currentUserData.displayName);
     } catch (error) {
       debugPrint("error: $error");
     }
