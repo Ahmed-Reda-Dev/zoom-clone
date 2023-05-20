@@ -56,4 +56,16 @@ class AuthMethods {
     }
     return isSignedIn;
   }
+
+  // Sign out
+  signOut() async {
+    try {
+      await GoogleSignIn().signOut();
+      await _auth.signOut();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
 }

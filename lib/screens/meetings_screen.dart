@@ -1,9 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/resources/jitsi_meet_methods.dart';
+import 'package:zoom_clone/utils/colors.dart';
 
 import '../widgets/home_meeting_button.dart';
 
 class MeetingsScreen extends StatelessWidget {
-  const MeetingsScreen({super.key});
+  MeetingsScreen({super.key});
+
+  final JitsiMeetMethods _jitsiMeetMethods = JitsiMeetMethods();
+  final String roomName = '';
+
+  creatNewMeeting({required String roomName}) async {
+    String initName = ' - meeting';
+    _jitsiMeetMethods.creatNewMeeting(
+      roomName: roomName + initName,
+      isAudioMuted: true,
+      isVideoMuted: true,
+    );
+  }
+
+  askForRoomName(BuildContext context, String roomName) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: backgroundColor,
+        title: const Text('Enter Room Name'),
+        content: TextField(
+          onChanged: (value) {
+            roomName = value;
+          },
+          decoration: const InputDecoration(
+            hintText: 'Room Name',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              creatNewMeeting(roomName: roomName);
+              Navigator.pop(context);
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +60,16 @@ class MeetingsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             HomeMeetingButton(
-              onTap: () {},
+              onTap: () {
+                askForRoomName(context, roomName);
+              },
               icon: Icons.video_call,
               text: 'New Meeting',
             ),
             HomeMeetingButton(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/video-Call');
+              },
               icon: Icons.add_box_rounded,
               text: 'Join Meeting',
             ),

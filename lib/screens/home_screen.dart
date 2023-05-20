@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/screens/history_meetings_screen.dart';
 import 'package:zoom_clone/screens/meetings_screen.dart';
+import 'package:zoom_clone/screens/settings_screen.dart';
 import 'package:zoom_clone/utils/colors.dart';
-
-import '../widgets/home_meeting_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,10 +21,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> pages = [
-    const MeetingsScreen(),
+    MeetingsScreen(),
     const HistoryMeetingsScreen(),
-    const Text('Contacts'),
-    const Text('Settings'),
+    const Center(
+      child: Text(
+        'Soon...',
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    ),
+    const SettingsScreen(),
   ];
 
   @override
@@ -36,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         title: const Text('Meet & Chat'),
         centerTitle: true,
+        leading: null,
       ),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
